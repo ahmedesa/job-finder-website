@@ -28,7 +28,8 @@ class CategoryController extends Controller
     public function show(Category $category, PaginatorInterface $paginator ,int $page) : Response
     {
         $activeJobs = $paginator->paginate(
-            $this->getDoctrine()->getRepository(Job::class)->getPaginatedActiveJobsByCategoryQuery($category),
+            $this->getDoctrine()->getRepository(Job::class)
+            ->getPaginatedActiveJobsByCategoryQuery($category),
             $page, // page
             $this->getParameter('max_jobs_on_category') // elements per page
         );
