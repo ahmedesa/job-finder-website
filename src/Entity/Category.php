@@ -1,12 +1,15 @@
-<?php 
+<?php
 namespace App\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
-* @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
-* @ORM\Table(name="categories")
-*
-*/
+ * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\Table(name="categories")
+ *
+ */
 class Category
 {
     /**
@@ -39,15 +42,25 @@ class Category
      */
     private $affiliates;
 
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"name"})
+     *
+     * @ORM\Column(type="string", length=128, unique=true)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->jobs = new ArrayCollection();
         $this->affiliates = new ArrayCollection();
     }
+
     /**
      * @return int
      */
-    public function getId() : ?int
+    public function getId():  ? int
     {
         return $this->id;
     }
@@ -55,7 +68,7 @@ class Category
     /**
      * @return string
      */
-    public function getName() : ?string
+    public function getName() :  ? string
     {
         return $this->name;
     }
@@ -85,7 +98,7 @@ class Category
      *
      * @return self
      */
-    public function addJob(Job $job) : self
+    public function addJob(Job $job): self
     {
         if (!$this->jobs->contains($job)) {
             $this->jobs->add($job);
@@ -99,11 +112,24 @@ class Category
      *
      * @return self
      */
-    public function removeJob(Job $job) : self
+    public function removeJob(Job $job): self
     {
         $this->jobs->removeElement($job);
 
         return $this;
+    }
+
+    public function getSlug():  ? string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug(string $slug) : void
+    {
+        $this->slug = $slug;
     }
 
     /**
@@ -119,7 +145,7 @@ class Category
      *
      * @return self
      */
-    public function addAffiliate($affiliate) : self
+    public function addAffiliate($affiliate): self
     {
         if (!$this->affiliates->contains($affiliate)) {
             $this->affiliates->add($affiliate);
@@ -133,17 +159,16 @@ class Category
      *
      * @return self
      */
-    public function removeAffiliate($affiliate) : self
+    public function removeAffiliate($affiliate): self
     {
         $this->affiliates->removeElement($affiliate);
 
         return $this;
     }
-    
-    /**
-    * @return Job[]|ArrayCollection
-    */
 
+    /**
+     * @return Job[]|ArrayCollection
+     */
     public function getActiveJobs()
     {
         return $this->jobs->filter(function (Job $job) {

@@ -30,8 +30,8 @@ class JobController extends AbstractController
 
 
 
-    //in requirment section we add \d+ to ensure the id is numeric value
     /**
+     * in requirment section we add \d+ to ensure the id is numeric value
      * @Route("job/{id}", name="job.show",requirements={"id" = "\d+"})
      * @Entity("job", expr="repository.findActiveJob(id)")
      * @param Jop $job
