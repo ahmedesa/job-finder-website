@@ -31,7 +31,8 @@ class Category
     /**
      * @var Job[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Job", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Job", mappedBy="category", cascade={"remove"})
+
      */
     private $jobs;
 

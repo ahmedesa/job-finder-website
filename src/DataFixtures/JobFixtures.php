@@ -19,7 +19,6 @@ class JobFixtures extends Fixture implements DependentFixtureInterface
         $jobSensioLabs->setCategory($manager->merge($this->getReference('category-programming')));
         $jobSensioLabs->setType('full-time');
         $jobSensioLabs->setCompany('Sensio Labs');
-        $jobSensioLabs->setLogo('sensio-labs.gif');
         $jobSensioLabs->setUrl('http://www.sensiolabs.com/');
         $jobSensioLabs->setPosition('Web Developer');
         $jobSensioLabs->setLocation('Paris, France');
@@ -35,7 +34,6 @@ class JobFixtures extends Fixture implements DependentFixtureInterface
         $jobExtremeSensio->setCategory($manager->merge($this->getReference('category-design')));
         $jobExtremeSensio->setType('part-time');
         $jobExtremeSensio->setCompany('Extreme Sensio');
-        $jobExtremeSensio->setLogo('extreme-sensio.gif');
         $jobExtremeSensio->setUrl('http://www.extreme-sensio.com/');
         $jobExtremeSensio->setPosition('Web Designer');
         $jobExtremeSensio->setLocation('Paris, France');
@@ -51,7 +49,6 @@ class JobFixtures extends Fixture implements DependentFixtureInterface
         $jobExpired->setCategory($manager->merge($this->getReference('category-programming')));
         $jobExpired->setType('full-time');
         $jobExpired->setCompany('Sensio Labs');
-        $jobExpired->setLogo('sensio-labs.gif');
         $jobExpired->setUrl('http://www.sensiolabs.com/');
         $jobExpired->setPosition('Web Developer Expired');
         $jobExpired->setLocation('Paris, France');
