@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\JobHistoryService;
 
 
  // @ Route ("job") // add this if i want to add /job front of all this controller routs
@@ -23,13 +24,15 @@ class JobController extends Controller
      * @Route("/",name="job.list",methods="GET")
      * @return Response
      */
-   function list(EntityManagerInterface $em): Response
+   function list(EntityManagerInterface $em, JobHistoryService $jobHistoryService): Response
    {
         
         $categories = $em->getRepository(Category::class)->findWithActiveJobs();
 
         return $this->render("job/list.html.twig", [
             "categories" => $categories,
+            "historyJobs" => $jobHistoryService->getJobs(),
+
         ]);
     }
 
@@ -42,8 +45,10 @@ class JobController extends Controller
      * @param Jop $job
      * @return Response
      */
-    public function show(Job $job): Response
+    public function show(Job $job, JobHistoryService $jobHistoryService): Response
     {
+        $jobHistoryService->addJob($job);
+
         return $this->render("job/show.html.twig", [
             "job" => $job,
         ]);
